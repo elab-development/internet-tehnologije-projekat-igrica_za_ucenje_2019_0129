@@ -18,6 +18,11 @@ class Lesson extends Model
         'title',
         'content',
         'user_id',
+        'difficulty', // Dodato polje za težinu
+        'description', // Dodato polje za kratak opis
+        'video_url', // Dodato polje za video link
+        'image_url', // Dodato polje za sliku
+        'estimated_time', // Dodato polje za procenu vremena u minutima
     ];
 
     /**

@@ -15,7 +15,11 @@ return new class extends Migration
     {
         Schema::create('challenge_user', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // ID korisnika, sa spoljnim ključem
+            $table->foreignId('challenge_id')->constrained()->onDelete('cascade'); // ID izazova, sa spoljnim ključem
+            $table->timestamp('attempted_at')->nullable(); // Datum i vreme pokušaja
+            $table->string('status')->default('pending'); // Status pokušaja (npr. 'completed' ili 'pending')
+            $table->timestamps(); // Kreiranje 'created_at' i 'updated_at' kolona
         });
     }
 

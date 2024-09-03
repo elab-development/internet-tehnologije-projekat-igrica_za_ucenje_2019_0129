@@ -13,12 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('lessons', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->text('content');
-            $table->unsignedBigInteger('user_id'); // Ispravljen tip kolone
-            $table->timestamps();
+        Schema::table('lessons', function (Blueprint $table) {
+            // Dodavanje spoljnog ključa na kolonu 'user_id'
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -29,6 +26,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lessons');
+        Schema::table('lessons', function (Blueprint $table) {
+           
+            $table->dropForeign(['user_id']);
+        });
     }
 };

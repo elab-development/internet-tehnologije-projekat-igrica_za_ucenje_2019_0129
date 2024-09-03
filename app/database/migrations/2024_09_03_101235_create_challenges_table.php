@@ -15,6 +15,11 @@ return new class extends Migration
     {
         Schema::create('challenges', function (Blueprint $table) {
             $table->id();
+            $table->string('question');
+            $table->string('answer');
+            $table->unsignedBigInteger('lesson_id');
+            $table->string('tezina'); // Greška u imenu kolone (umesto difficulty)
+            $table->string('other'); 
             $table->timestamps();
         });
     }

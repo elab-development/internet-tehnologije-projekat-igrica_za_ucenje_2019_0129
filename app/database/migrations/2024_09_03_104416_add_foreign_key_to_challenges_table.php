@@ -13,12 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('lessons', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->text('content');
-            $table->unsignedBigInteger('user_id'); // Ispravljen tip kolone
-            $table->timestamps();
+        Schema::table('challenges', function (Blueprint $table) {
+            $table->foreign('lesson_id')->references('id')->on('lessons')->onDelete('cascade');
         });
     }
 
@@ -29,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lessons');
+        Schema::table('challenges', function (Blueprint $table) {
+            $table->dropForeign(['lesson_id']);
+        });
     }
 };

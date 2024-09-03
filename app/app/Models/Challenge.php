@@ -18,6 +18,12 @@ class Challenge extends Model
         'question',
         'answer',
         'lesson_id',
+        'difficulty',  // Dodato polje za težinu
+        'hint',  // Dodato polje za pomoć
+        'max_attempts',  // Dodato polje za maksimalan broj pokušaja
+        'time_limit',  // Dodato polje za vremensko ograničenje
+        'type',  // Dodato polje za tip izazova
+        'points',  // Dodato polje za poene
     ];
 
     /**
