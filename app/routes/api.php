@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ChallengeUserPivotController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,10 +19,18 @@ use App\Http\Controllers\AuthController;
 
 
 
+Route::get('/challenge-user-pivot', [ChallengeUserPivotController::class, 'index']);
+Route::get('/challenge-user-pivot/{id}', [ChallengeUserPivotController::class, 'show']);
+Route::post('/challenge-user-pivot', [ChallengeUserPivotController::class, 'store']);
+Route::put('/challenge-user-pivot/{id}', [ChallengeUserPivotController::class, 'update']);
+Route::delete('/challenge-user-pivot/{id}', [ChallengeUserPivotController::class, 'destroy']);
+
+
 Route::apiResource('challenges', ChallengeController::class);
 Route::apiResource('lessons', LessonController::class);
 
-
+// Ruta za pretragu lekcija
+Route::get('/lessons/search', [LessonController::class, 'search']);
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);

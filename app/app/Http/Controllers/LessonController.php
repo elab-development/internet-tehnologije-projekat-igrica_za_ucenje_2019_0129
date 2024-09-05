@@ -92,4 +92,26 @@ class LessonController extends Controller
 
         return response()->json(['message' => 'Lesson deleted successfully'], 200);
     }
+
+    // Pretraga lekcija po naslovu, težini, ili opisu
+    public function search(Request $request)
+    {
+        $query = Lesson::query();
+
+        if ($request->has('title')) {
+            $query->where('title', 'like', '%' . $request->input('title') . '%');
+        }
+
+        if ($request->has('difficulty')) {
+            $query->where('difficulty', $request->input('difficulty'));
+        }
+
+        if ($request->has('description')) {
+            $query->where('description', 'like', '%' . $request->input('description') . '%');
+        }
+
+        $lessons = $query->get();
+
+        return LessonResource::collection($lessons);
+    }
 }
