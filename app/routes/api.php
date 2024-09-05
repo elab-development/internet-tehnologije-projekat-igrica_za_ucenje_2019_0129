@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LessonController;
+use App\Http\Controllers\ChallengeController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -15,6 +16,8 @@ use App\Http\Controllers\LessonController;
 */
 
 
+
+Route::apiResource('challenges', ChallengeController::class);
 Route::apiResource('lessons', LessonController::class);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
