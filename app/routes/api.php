@@ -16,15 +16,15 @@ use App\Http\Controllers\ChallengeUserPivotController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+// Ruta za pretragu lekcija, dostupna svim ulogama
+Route::get('/lessons/search', [LessonController::class, 'search']);
 
-
-Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
+Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('challenges', ChallengeController::class);
     Route::apiResource('lessons', LessonController::class);
 });
 
-// Ruta za pretragu lekcija, dostupna svim ulogama
-Route::get('/lessons/search', [LessonController::class, 'search']);
+
 
 // Rute za autentifikaciju
 Route::post('/register', [AuthController::class, 'register']);
