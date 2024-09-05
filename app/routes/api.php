@@ -18,20 +18,25 @@ use App\Http\Controllers\ChallengeUserPivotController;
 */
 
 
+Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
+    Route::apiResource('challenges', ChallengeController::class);
+    Route::apiResource('lessons', LessonController::class);
+});
 
-Route::get('/challenge-user-pivot', [ChallengeUserPivotController::class, 'index']);
-Route::get('/challenge-user-pivot/{id}', [ChallengeUserPivotController::class, 'show']);
-Route::post('/challenge-user-pivot', [ChallengeUserPivotController::class, 'store']);
-Route::put('/challenge-user-pivot/{id}', [ChallengeUserPivotController::class, 'update']);
-Route::delete('/challenge-user-pivot/{id}', [ChallengeUserPivotController::class, 'destroy']);
-
-
-Route::apiResource('challenges', ChallengeController::class);
-Route::apiResource('lessons', LessonController::class);
-
-// Ruta za pretragu lekcija
+// Ruta za pretragu lekcija, dostupna svim ulogama
 Route::get('/lessons/search', [LessonController::class, 'search']);
 
+// Rute za autentifikaciju
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+
+// Rute za pivot tabelu
+Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
+    Route::get('/challenge-user-pivot', [ChallengeUserPivotController::class, 'index']);
+    Route::get('/challenge-user-pivot/{id}', [ChallengeUserPivotController::class, 'show']);
+    Route::post('/challenge-user-pivot', [ChallengeUserPivotController::class, 'store']);
+    Route::put('/challenge-user-pivot/{id}', [ChallengeUserPivotController::class, 'update']);
+    Route::delete('/challenge-user-pivot/{id}', [ChallengeUserPivotController::class, 'destroy']);
+});
+
