@@ -1,14 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import LoginForm from './LoginForm';  
+import FlexboxGame from './FlexboxGame';  
 import Pocetna from './Pocetna';
-import FlexboxGame from './FlexboxGame';
 
 function App() {
   return (
-    <div className="App">
-      <FlexboxGame></FlexboxGame>
-      <Pocetna></Pocetna>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Pocetna />} />
+        <Route path="/login" element={<LoginForm />} />
+        <Route path="/flexboxfroggygame" element={<FlexboxGame />} />
+      </Routes>
+    </Router>
   );
 }
 
