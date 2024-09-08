@@ -23,13 +23,17 @@ const LoginForm = ({ setToken, setUser }) => {
       const { access_token, user } = response.data;
       sessionStorage.setItem('auth_token', access_token);
       sessionStorage.setItem('user', JSON.stringify(user));
-
+      
       // Postavljanje tokena i korisnika u App.js
       setToken(access_token);
       setUser(user);
 
-      // Navigacija ka Flexbox Froggy igrici
-      navigate('/flexboxfroggygame');
+      // Provera korisničke uloge i navigacija
+      if (user.role === 'admin') {
+        navigate('/lessons');
+      } else {
+        navigate('/flexboxfroggygame');
+      }
     } catch (err) {
       setError('Invalid credentials. Please try again.');
     }

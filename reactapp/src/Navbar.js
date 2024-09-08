@@ -34,21 +34,32 @@ const Navbar = ({ token, user, setToken, setUser }) => {
     <nav className="navbar">
       <div className="navbar-links">
         <Link to="/">Početna</Link>
+
         {!token ? (
           <>
+            {/* Linkovi za neulogovane korisnike */}
             <Link to="/login">Prijavi se</Link>
             <Link to="/register">Registruj se</Link>
           </>
         ) : (
           <>
-             <Link to="/challenges">Challenges</Link>
-          <Link to="/lessons">Lessons</Link>
-            <Link to="/flexboxfroggygame">Flexbox Froggy</Link>
+            {/* Linkovi za ulogovane korisnike */}
+            {user?.role === 'user' && (
+              <>
+                <Link to="/flexboxfroggygame">Flexbox Froggy</Link>
+                <Link to="/trivia">Trivia</Link>
+              </>
+            )}
+            {user?.role === 'admin' && (
+              <>
+                <Link to="/challenges">Challenges</Link>
+                <Link to="/lessons">Lessons</Link>
+              </>
+            )}
             <span>Dobrodošli, {user?.name}</span>
             <button onClick={handleLogout}>Odjavi se</button>
           </>
         )}
-      
       </div>
     </nav>
   );

@@ -101,6 +101,9 @@ const FlexboxGame = () => {
     }
   };
 
+  // Prikaz poslednjih 5 unosa u hronološkom redosledu (najnoviji na vrhu)
+  const lastFiveAttempts = attempts.slice(-5).reverse();
+
   return (
     <div className="game-container">
       <h1>Flexbox Igrica</h1>
@@ -126,9 +129,9 @@ const FlexboxGame = () => {
         </>
       ) : null}
 
-     
+      {/* Prikaz poslednjih 5 pokušaja */}
       <div className="attempts-container">
-        <h2>Istorija pokušaja</h2>
+        <h2>Poslednjih 5 pokušaja</h2>
         <table className="attempts-table">
           <thead>
             <tr>
@@ -137,7 +140,7 @@ const FlexboxGame = () => {
             </tr>
           </thead>
           <tbody>
-            {attempts.map((attempt, index) => (
+            {lastFiveAttempts.map((attempt, index) => (
               <tr key={index}>
                 <td>{attempt.level}</td>
                 <td>{attempt.date}</td>
