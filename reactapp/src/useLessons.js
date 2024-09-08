@@ -28,7 +28,7 @@ const useLessons = () => {
     fetchLessons();
   }, []);
 
-  return { lessons, loading, error };
+  return { lessons,setLessons, loading, error };
 };
 
 export default useLessons;
