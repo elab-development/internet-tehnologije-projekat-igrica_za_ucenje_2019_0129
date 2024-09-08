@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import './LoginForm.css';  
+import './LoginForm.css';
 
-const LoginForm = () => {
+const LoginForm = ({ setToken, setUser }) => {
   const [email, setEmail] = useState('oj20190129@student.fon.bg.ac.com');
   const [password, setPassword] = useState('password');
   const [error, setError] = useState(null);
@@ -19,8 +19,13 @@ const LoginForm = () => {
       });
 
       // Čuvanje podataka o korisniku u session storage
-      sessionStorage.setItem('auth_token', response.data.access_token);
-      sessionStorage.setItem('user', JSON.stringify(response.data.user));
+      const { access_token, user } = response.data;
+      sessionStorage.setItem('auth_token', access_token);
+      sessionStorage.setItem('user', JSON.stringify(user));
+
+      // Postavljanje tokena i korisnika u App.js
+      setToken(access_token);
+      setUser(user);
 
       // Navigacija ka Flexbox Froggy igrici
       navigate('/flexboxfroggygame');
