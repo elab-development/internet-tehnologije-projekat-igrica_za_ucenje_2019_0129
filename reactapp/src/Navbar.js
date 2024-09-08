@@ -41,6 +41,7 @@ const Navbar = ({ token, user, setToken, setUser }) => {
           </>
         ) : (
           <>
+          <Link to="/lessons">Lessons</Link>
             <Link to="/flexboxfroggygame">Flexbox Froggy</Link>
             <span>Dobrodošli, {user?.name}</span>
             <button onClick={handleLogout}>Odjavi se</button>

@@ -5,6 +5,7 @@ import FlexboxGame from './FlexboxGame';
 import Pocetna from './Pocetna';
 import RegisterForm from './RegisterForm';
 import Navbar from './Navbar';
+import LessonsTable from './LessonsTable';
 
 function App() {
   const [token, setToken] = useState(null);
@@ -29,6 +30,8 @@ function App() {
       <Navbar token={token} user={user} setToken={setToken} setUser={setUser} />
       <Routes>
         <Route path="/" element={<Pocetna />} />
+        <Route path="/lessons" element={<LessonsTable />} />
+
         <Route path="/login" element={<LoginForm setToken={setToken} setUser={setUser} />} />
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/flexboxfroggygame" element={<FlexboxGame />} />

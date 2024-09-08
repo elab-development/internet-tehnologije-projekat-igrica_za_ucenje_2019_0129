@@ -1,0 +1,37 @@
+.lessons-table-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .lessons-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .lessons-table th,
+  .lessons-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .lessons-table th {
+    background-color: #4e8098;
+    color: white;
+    text-align: left;
+  }
+  
+  .lessons-table td {
+    text-align: left;
+  }
+  
+  .lessons-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .lessons-table tr:hover {
+    background-color: #ddd;
+  }
+  
