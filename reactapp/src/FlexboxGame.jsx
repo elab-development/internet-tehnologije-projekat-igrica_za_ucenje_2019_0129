@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './FlexboxGame.css';
 
 const FlexboxGame = () => {
@@ -48,6 +48,13 @@ const FlexboxGame = () => {
   const [userCSS, setUserCSS] = useState('');
   const [isCorrect, setIsCorrect] = useState(false);
   const [currentLevel, setCurrentLevel] = useState(0);
+  const [attempts, setAttempts] = useState([]);
+
+  useEffect(() => {
+    // Učitaj pokušaje iz localStorage-a prilikom inicijalizacije
+    const storedAttempts = JSON.parse(localStorage.getItem('flexboxGameAttempts')) || [];
+    setAttempts(storedAttempts);
+  }, []);
 
   const handleChange = (e) => {
     setUserCSS(e.target.value);
@@ -75,6 +82,16 @@ const FlexboxGame = () => {
   };
 
   const nextLevel = () => {
+    // Snimi rezultat u localStorage
+    const newAttempt = {
+      level: currentLevel + 1,
+      date: new Date().toLocaleString(),
+    };
+
+    const updatedAttempts = [...attempts, newAttempt];
+    setAttempts(updatedAttempts);
+    localStorage.setItem('flexboxGameAttempts', JSON.stringify(updatedAttempts));
+
     if (currentLevel < levels.length - 1) {
       setCurrentLevel(currentLevel + 1);
       setIsCorrect(false);
@@ -108,6 +125,27 @@ const FlexboxGame = () => {
           </button>
         </>
       ) : null}
+
+     
+      <div className="attempts-container">
+        <h2>Istorija pokušaja</h2>
+        <table className="attempts-table">
+          <thead>
+            <tr>
+              <th>Nivo</th>
+              <th>Datum</th>
+            </tr>
+          </thead>
+          <tbody>
+            {attempts.map((attempt, index) => (
+              <tr key={index}>
+                <td>{attempt.level}</td>
+                <td>{attempt.date}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
