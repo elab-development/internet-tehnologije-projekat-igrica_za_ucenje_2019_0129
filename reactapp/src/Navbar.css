@@ -1,4 +1,3 @@
-/* Navbar.css */
 .navbar {
     background-color: var(--primary-color);
     padding: 15px;
@@ -26,13 +25,19 @@
     background-color: var(--success-color);
   }
   
-  .navbar-links span {
+  .navbar-user-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Razmak između imena korisnika i dugmeta za odjavu */
+  }
+  
+  .navbar-user-controls span {
     color: white;
     font-weight: bold;
     padding: 8px 15px;
   }
   
-  .navbar-links button {
+  .navbar-user-controls button {
     background-color: var(--success-color);
     color: white;
     border: none;
@@ -43,7 +48,7 @@
     transition: background-color 0.3s ease;
   }
   
-  .navbar-links button:hover {
+  .navbar-user-controls button:hover {
     background-color: white;
     color: var(--primary-color);
     border: 1px solid var(--primary-color);
