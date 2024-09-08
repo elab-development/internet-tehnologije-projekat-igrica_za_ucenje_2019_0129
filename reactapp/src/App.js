@@ -6,6 +6,7 @@ import Pocetna from './Pocetna';
 import RegisterForm from './RegisterForm';
 import Navbar from './Navbar';
 import LessonsTable from './LessonsTable';
+import ChallengeTable from './ChallengeTable';
 
 function App() {
   const [token, setToken] = useState(null);
@@ -31,6 +32,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Pocetna />} />
         <Route path="/lessons" element={<LessonsTable />} />
+        <Route path="/challenges" element={<ChallengeTable />} />
 
         <Route path="/login" element={<LoginForm setToken={setToken} setUser={setUser} />} />
         <Route path="/register" element={<RegisterForm />} />
