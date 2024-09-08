@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import useLessons from './useLessons'; 
+import LessonRow from './LessonRow'; // Uvozimo reusable komponentu za red tabele
 import './LessonsTable.css'; 
 
 const LessonsTable = () => {
@@ -66,12 +67,7 @@ const LessonsTable = () => {
         </thead>
         <tbody>
           {currentLessons.map((lesson) => (
-            <tr key={lesson.id}>
-              <td>{lesson.title}</td>
-              <td>{lesson.difficulty}</td>
-              <td>{lesson.description}</td>
-              <td>{lesson.estimated_time || 'N/A'}</td>
-            </tr>
+            <LessonRow key={lesson.id} lesson={lesson} />  // Koristimo reusable komponentu za red tabele
           ))}
         </tbody>
       </table>
