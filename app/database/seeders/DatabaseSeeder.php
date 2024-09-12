@@ -46,14 +46,18 @@ class DatabaseSeeder extends Seeder
         // Povezivanje učenika sa izazovima putem pivot tabele
         $challenges = Challenge::all();
         $challenges->each(function ($challenge) use ($student) {
-            DB::table('challenge_user')->insert([
+            $statusOptions = ['failed', 'success'];
+            $status = $statusOptions[array_rand($statusOptions)];  // za status bira random element
+            
+            DB::table('challenge_user_pivot')->insert([
                 'user_id' => $student->id,
                 'challenge_id' => $challenge->id,
                 'attempted_at' => now(),
-                'status' => 'completed',
+                'status' => $status,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
+            
         });
     }
 }

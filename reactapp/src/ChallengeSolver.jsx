@@ -9,7 +9,7 @@ const ChallengeSolver = () => {
   const [showHints, setShowHints] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const userId = 1; // Primer za korisnika, možeš ga dinamički dohvatiti
+  const userId = JSON.parse(sessionStorage.getItem('user')).id;  
 
   const savedToken = sessionStorage.getItem('auth_token'); // Uzimanje auth tokena iz sessionStorage
 
