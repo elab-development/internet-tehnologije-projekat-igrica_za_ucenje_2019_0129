@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import useLessons from './useLessons'; 
-import LessonRow from './LessonRow'; // Uvozimo reusable komponentu za red tabele
+import LessonRow from './LessonRow'; 
 import './LessonsTable.css'; 
 
 const LessonsTable = () => {
-  const { lessons, loading, error, setLessons } = useLessons(); // Dodajemo setLessons kako bismo osvežili lekcije
-  const [searchTerm, setSearchTerm] = useState(''); // Filter za pretragu
-  const [currentPage, setCurrentPage] = useState(1); // Trenutna stranica
-  const [itemsPerPage] = useState(5); // Broj lekcija po stranici
-  const [showModal, setShowModal] = useState(false); // Kontrola za modal
-
-  // State za kreiranje nove lekcije
+  const { lessons, loading, error, setLessons } = useLessons();
+  const [searchTerm, setSearchTerm] = useState(''); 
+  const [currentPage, setCurrentPage] = useState(1); 
+  const [itemsPerPage] = useState(5); 
+  const [showModal, setShowModal] = useState(false); 
+  const [editingLesson, setEditingLesson] = useState(null); // State za editovanje
   const [newLesson, setNewLesson] = useState({
     title: '',
     content: '',
@@ -21,19 +20,18 @@ const LessonsTable = () => {
     image_url: '',
     estimated_time: ''
   });
-  
-  // Filtriranje lekcija na osnovu pojma za pretragu
+
+  // Filtriranje lekcija
   const filteredLessons = lessons.filter((lesson) => 
     lesson.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
     lesson.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
     lesson.difficulty.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Izračunavanje lekcija za prikaz na trenutnoj stranici
+  // Paginacija
   const indexOfLastLesson = currentPage * itemsPerPage;
   const indexOfFirstLesson = indexOfLastLesson - itemsPerPage;
   const currentLessons = filteredLessons.slice(indexOfFirstLesson, indexOfLastLesson);
-
   const totalPages = Math.ceil(filteredLessons.length / itemsPerPage);
 
   const handleNextPage = () => {
@@ -48,10 +46,9 @@ const LessonsTable = () => {
     }
   };
 
-  // Funkcija za slanje POST zahteva i kreiranje nove lekcije
-  const handleCreateLesson = async (e) => {
+  // Kreiranje ili ažuriranje lekcije
+  const handleSaveLesson = async (e) => {
     e.preventDefault();
-
     const token = sessionStorage.getItem('auth_token');
     if (!token) {
       alert('Niste prijavljeni!');
@@ -59,14 +56,22 @@ const LessonsTable = () => {
     }
 
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/lessons', newLesson, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      // Dodavanje nove lekcije u listu bez potrebe za osvežavanjem cele stranice
-      setLessons([...lessons, response.data.data]);
+      if (editingLesson) {
+        // Ažuriraj lekciju
+        const response = await axios.put(
+          `http://127.0.0.1:8000/api/lessons/${editingLesson.id}`, 
+          newLesson,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+        setLessons(lessons.map((lesson) => lesson.id === editingLesson.id ? response.data.data : lesson));
+      } else {
+        // Kreiraj novu lekciju
+        const response = await axios.post('http://127.0.0.1:8000/api/lessons', newLesson, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setLessons([...lessons, response.data.data]);
+      }
+      setShowModal(false);
       setNewLesson({
         title: '',
         content: '',
@@ -76,9 +81,29 @@ const LessonsTable = () => {
         image_url: '',
         estimated_time: ''
       });
-      setShowModal(false); // Zatvori modal nakon kreiranja lekcije
+      setEditingLesson(null);
     } catch (error) {
-      console.error('Greška prilikom kreiranja lekcije:', error);
+      console.error('Greška prilikom kreiranja/ažuriranja lekcije:', error);
+    }
+  };
+
+  // Prikaz modala za editovanje
+  const handleEditLesson = (lesson) => {
+    setNewLesson(lesson);
+    setEditingLesson(lesson);
+    setShowModal(true);
+  };
+
+  // Brisanje lekcije
+  const handleDeleteLesson = async (id) => {
+    const token = sessionStorage.getItem('auth_token');
+    try {
+      await axios.delete(`http://127.0.0.1:8000/api/lessons/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setLessons(lessons.filter((lesson) => lesson.id !== id));
+    } catch (error) {
+      console.error('Greška prilikom brisanja lekcije:', error);
     }
   };
 
@@ -96,20 +121,22 @@ const LessonsTable = () => {
         value={searchTerm} 
         onChange={(e) => {
           setSearchTerm(e.target.value);
-          setCurrentPage(1); // Resetovanje na prvu stranicu prilikom pretrage
+          setCurrentPage(1);
         }}
         className="search-input"
       />
 
       {/* Dugme za otvaranje modala */}
-      <button onClick={() => setShowModal(true)} className="create-lesson-button">Kreiraj Lekciju</button>
+      <button onClick={() => setShowModal(true)} className="create-lesson-button">
+        {editingLesson ? "Ažuriraj Lekciju" : "Kreiraj Lekciju"}
+      </button>
 
       {/* Modal */}
       {showModal && (
         <div className="modal-overlay">
           <div className="modal-content">
-            <h3>Kreiraj novu lekciju</h3>
-            <form onSubmit={handleCreateLesson} className="create-lesson-form">
+            <h3>{editingLesson ? "Ažuriraj Lekciju" : "Kreiraj novu lekciju"}</h3>
+            <form onSubmit={handleSaveLesson} className="create-lesson-form">
               <input 
                 type="text" 
                 placeholder="Naslov" 
@@ -154,7 +181,7 @@ const LessonsTable = () => {
                 value={newLesson.estimated_time} 
                 onChange={(e) => setNewLesson({ ...newLesson, estimated_time: e.target.value })} 
               />
-              <button type="submit">Kreiraj Lekciju</button>
+              <button type="submit">{editingLesson ? "Ažuriraj" : "Kreiraj"}</button>
               <button type="button" onClick={() => setShowModal(false)}>Zatvori</button>
             </form>
           </div>
@@ -169,11 +196,17 @@ const LessonsTable = () => {
             <th>Težina</th>
             <th>Opis</th>
             <th>Procenjeno vreme (min)</th>
+            <th>Akcije</th>
           </tr>
         </thead>
         <tbody>
           {currentLessons.map((lesson) => (
-            <LessonRow key={lesson.id} lesson={lesson} />  // Koristimo reusable komponentu za red tabele
+            <LessonRow 
+              key={lesson.id} 
+              lesson={lesson} 
+              onEdit={() => handleEditLesson(lesson)}
+              onDelete={() => handleDeleteLesson(lesson.id)} 
+            />
           ))}
         </tbody>
       </table>
