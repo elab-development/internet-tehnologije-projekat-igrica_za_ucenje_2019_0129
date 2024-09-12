@@ -22,7 +22,7 @@ Route::get('/lessons/search', [LessonController::class, 'search']);
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('challenges', ChallengeController::class);
     Route::apiResource('lessons', LessonController::class);
-
+    Route::get('/admin/statistics', [ChallengeUserPivotController::class, 'statistics']);
 
     Route::get('/challenge-user-pivot', [ChallengeUserPivotController::class, 'index']);
     Route::get('/challenge-user-pivot/{id}', [ChallengeUserPivotController::class, 'show']);

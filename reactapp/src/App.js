@@ -9,6 +9,7 @@ import LessonsTable from './LessonsTable';
 import ChallengeTable from './ChallengeTable';
 import TriviaQuestions from './TriviaQuestions';
 import ChallengeSolver from './ChallengeSolver';
+import AdminDashboard from './AdminDashboard';
 
 function App() {
   const [token, setToken] = useState(null);
@@ -33,6 +34,8 @@ function App() {
       <Navbar token={token} user={user} setToken={setToken} setUser={setUser} />
       <Routes>
         <Route path="/" element={<Pocetna />} />
+        <Route path="/adminDashboard" element={<AdminDashboard />} />
+
         <Route path="/lessons" element={<LessonsTable />} />
         <Route path="/challenges" element={<ChallengeTable />} />
         <Route path="/trivia" element={<TriviaQuestions />} />

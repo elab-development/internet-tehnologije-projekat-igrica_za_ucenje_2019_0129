@@ -1,0 +1,58 @@
+.admin-dashboard {
+    padding: 20px;
+  }
+  
+  .statistic-cards {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 40px;
+  }
+  
+  .stat-card {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    margin: 0 10px;
+  }
+  
+  .stat-card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .stat-card p {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  
+  .chart-container {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  .submit-button {
+    background-color: #28a745;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+  
+  .submit-button:hover {
+    background-color: #218838;
+  }
+  
+  .error-message {
+    color: red;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  
