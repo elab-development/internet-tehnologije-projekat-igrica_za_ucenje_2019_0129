@@ -46,6 +46,7 @@ const Navbar = ({ token, user, setToken, setUser }) => {
             {/* Linkovi za ulogovane korisnike */}
             {user?.role === 'user' && (
               <>
+               <Link to="/challengeSolver">Challenges</Link>
                 <Link to="/flexboxfroggygame">Flexbox Froggy</Link>
                 <Link to="/trivia">Trivia</Link>
               </>

@@ -5,8 +5,8 @@ import InputField from './InputField'; // Uvozimo reusable komponentu
 import './LoginForm.css';
 
 const LoginForm = ({ setToken, setUser }) => {
-  const [email, setEmail] = useState('oj20190129@student.fon.bg.ac.com');
-  const [password, setPassword] = useState('password');
+  const [email, setEmail] = useState('marina.gallardo@example.com');
+  const [password, setPassword] = useState('242424');
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 

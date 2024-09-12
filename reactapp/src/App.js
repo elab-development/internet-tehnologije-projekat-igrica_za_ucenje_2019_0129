@@ -8,6 +8,7 @@ import Navbar from './Navbar';
 import LessonsTable from './LessonsTable';
 import ChallengeTable from './ChallengeTable';
 import TriviaQuestions from './TriviaQuestions';
+import ChallengeSolver from './ChallengeSolver';
 
 function App() {
   const [token, setToken] = useState(null);
@@ -40,6 +41,11 @@ function App() {
         <Route path="/login" element={<LoginForm setToken={setToken} setUser={setUser} />} />
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/flexboxfroggygame" element={<FlexboxGame />} />
+
+
+        <Route path="/challengeSolver" element={<ChallengeSolver />} />
+
+
       </Routes>
     </Router>
   );
