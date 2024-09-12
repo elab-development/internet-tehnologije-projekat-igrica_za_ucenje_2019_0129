@@ -27,7 +27,7 @@ const useChallenges = () => {
     fetchChallenges();
   }, []);
 
-  return { challenges, loading, error };
+  return { challenges,setChallenges, loading, error };
 };
 
 export default useChallenges;
