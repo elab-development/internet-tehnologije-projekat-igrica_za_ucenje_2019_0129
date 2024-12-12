@@ -1,0 +1,126 @@
+.challenge-table-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.challenge-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.challenge-table th,
+.challenge-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.challenge-table th {
+    background-color: #4e8098;
+    color: white;
+    text-align: left;
+}
+
+.challenge-table td {
+    text-align: left;
+}
+
+.challenge-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.challenge-table tr:hover {
+    background-color: #ddd;
+}
+
+.search-input {
+    padding: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.pagination-controls {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pagination-controls button {
+    background-color: #4e8098;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.pagination-controls button:disabled {
+    background-color: #ccc;
+}
+
+.pagination-controls span {
+    font-weight: bold;
+}
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.create-challenge-form input,
+.create-challenge-form textarea,
+.create-challenge-form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.create-challenge-form button {
+    padding: 10px 20px;
+    background-color: #4e8098;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.create-challenge-form button:hover {
+    background-color: #3c6778;
+}
+
+.create-challenge-form .cancel-button {
+    background-color: #ccc;
+    color: black;
+}
+
+.create-challenge-form .cancel-button:hover {
+    background-color: #aaa;
+}
+
+.modal-header {
+    margin-bottom: 20px;
+    font-size: 1.2em;
+    color: #4e8098;
+}
